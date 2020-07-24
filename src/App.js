@@ -48,7 +48,7 @@ class App extends React.Component {
                 }> send</button> <button onClick={() => {
                    obsTest();
                 }
-                }> Test obs</button>
+                }> Test obs 1</button>
             </div>
             <div> {fromArrToComponent(this.state.chat)}</div>
         </div>
