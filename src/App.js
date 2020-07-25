@@ -13,10 +13,11 @@ class App extends React.Component {
         const options = {
             options: {
                 debug: true,
-                secure: true
+
             },
             connection: {
                 reconnect: true,
+                secure: true
             },
             identity: {
                 username: "advicerfromchat",
@@ -27,7 +28,7 @@ class App extends React.Component {
             ],
         };
         this.state = {chat: []}
-
+        console.log(options)
         window.state = this.state;
         this.client = new tmi.client(options);
         this.client.connect()
