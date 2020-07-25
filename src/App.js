@@ -6,6 +6,7 @@ import {h3lobby} from './h3lobby'
 const options = {
     options: {
         debug: true,
+        secure: true
     },
     connection: {
         reconnect: true,
@@ -68,13 +69,13 @@ class App extends React.Component {
                 }> send
                 </button>
 
-                <button onClick={() => {
-                    // this.setState({...this.state, chat: [...this.state.chat, {name: "advicerfromchat", text: this.state.text}]})
-                    // this.client.say("ariywariy", this.state.text)
+                {/*<button onClick={() => {*/}
+                {/*    // this.setState({...this.state, chat: [...this.state.chat, {name: "advicerfromchat", text: this.state.text}]})*/}
+                {/*    // this.client.say("ariywariy", this.state.text)*/}
 
-                }
-                }> send
-                </button>
+                {/*}*/}
+                {/*}> send*/}
+                {/*</button>*/}
             </div>
             {/*<div> {fromArrToComponent(this.state.chat)}</div>*/}
         </div>
