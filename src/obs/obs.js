@@ -29,6 +29,7 @@ export let obsConnect = () => {
 
 }
 export let setGameInfo = (channelName, channelRating, channelTown, oppName, oppRating, oppTown) => {
+    console.log(`${channelName} ${channelTown} ${channelRating} ${oppName} ${oppRating} ${oppTown}`)
     obs.send('SetTextGDIPlusProperties', {source: "игра", text: `${channelName} ${channelTown} ${channelRating} ${oppName} ${oppRating} ${oppTown}`}).then(data => {
         console.log(data);
     });
