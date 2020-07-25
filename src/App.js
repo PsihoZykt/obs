@@ -3,27 +3,29 @@ import {obsConnect, setGameInfo} from "./obs/obs";
 import tmi from 'tmi.js'
 import {h3lobby} from './h3lobby'
 
-const options = {
-    options: {
-        debug: true,
-        secure: true
-    },
-    connection: {
-        reconnect: true,
-    },
-    identity: {
-        username: "advicerfromchat",
-        password: "oauth:cchg3xx5wmu0pcspo0ku3eoqmqsfxd",
-    },
-    channels: ['psihoz_ykt',
-        "ariywariy", "nobodydie_", "bakhtik"
-    ],
-};
+
 
 class App extends React.Component {
 
     constructor(props) {
+
         super(props);
+        const options = {
+            options: {
+                debug: true,
+                secure: true
+            },
+            connection: {
+                reconnect: true,
+            },
+            identity: {
+                username: "advicerfromchat",
+                password: "oauth:cchg3xx5wmu0pcspo0ku3eoqmqsfxd",
+            },
+            channels: ['psihoz_ykt',
+                "ariywariy", "nobodydie_", "bakhtik"
+            ],
+        };
         this.state = {chat: []}
 
         window.state = this.state;
