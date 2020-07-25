@@ -37,26 +37,29 @@ class App extends React.Component {
         });
         this.client.on('chat', (channel, userstate, message, self) => {
             if (userstate.username === "psihoz_ykt") {
+
                 const words = message.split(' ');
-                const channelTown = words[1];
-                const channelRating = words[2];
-                const vs = words[2];
-                const oppName = words[3];
-                const oppRating = words[4];
-                const oppTown = words[5];
-                console.log(`${channelTown} ${channelRating} ${oppName} ${oppRating} ${oppTown}`)
-                setGameInfo("Ariy", channelTown, channelRating, oppName, oppRating, oppTown)
-                //!set castle +3000 vs Zoom4uk 300rate Rampart
-                let rating = ""
-                // h3lobby.getRating("#ariywariy", words).then(
-                //     el => {
-                //         rating = el
-                //         console.log(rating)
-                //     }
-                // );
+                if (words[0] === "!set") {
+                    const channelTown = words[1];
+                    const channelRating = words[2];
+                    const vs = words[2];
+                    const oppName = words[3];
+                    const oppRating = words[4];
+                    const oppTown = words[5];
+                    console.log(`${channelTown} ${channelRating} ${oppName} ${oppRating} ${oppTown}`)
+                    setGameInfo("Ariy", channelTown, channelRating, oppName, oppRating, oppTown)
+                    //!set castle +3000 vs Zoom4uk 300rate Rampart
+                    let rating = ""
+                    // h3lobby.getRating("#ariywariy", words).then(
+                    //     el => {
+                    //         rating = el
+                    //         console.log(rating)
+                    //     }
+                    // );
+                }
+                // let chat =  [...this.state.chat, {name: userstate["display-name"], text: message}];
+                //  this.setState({chat})
             }
-            // let chat =  [...this.state.chat, {name: userstate["display-name"], text: message}];
-            //  this.setState({chat})
         });
     }
 
