@@ -28,12 +28,24 @@ export let obsConnect = () => {
         });
 
 }
-export let obsTest = () => {
-    // obs.send('GetSceneList').then(data => {
-    //     console.log(data.scenes[0].sources);
-    // });
-    obs.send('SetTextGDIPlusProperties', {"source":"Opp_1", "text" : "Testing"}).then(data => {
+export let setGameInfo = (channelName, channelRating, channelTown, oppName, oppRating, oppTown) => {
+    obs.send('SetTextGDIPlusProperties', {source: "игра", text: `${channelName} ${channelTown} ${channelRating} ${oppName} ${oppRating} ${oppTown}`}).then(data => {
         console.log(data);
-    }).catch(err => console.log(err));
+    });
+obs.send('GetSourcesList').then(data => {
+        console.log(data);
+    });
+    // obs.send('SetTextGDIPlusProperties', {"source": "Opp_1", "text": "Testing"}).then(data => {
+    //     console.log(data);
+    // }).catch(err => console.log(err));
 
+}
+
+export let obsTest2 = () => {
+    obs.send("SetSceneItemProperties", {
+        sceneName: "Сцена",
+        item: "change",
+        type: {}
+
+    }).then(data => console.log(data))
 }
