@@ -33,13 +33,6 @@ export let setGameInfo = (channelName, channelRating, channelTown, oppName, oppR
     obs.send('SetTextGDIPlusProperties', {source: "игра", text: `${channelName} ${channelTown} ${channelRating} ${oppName} ${oppRating} ${oppTown}`}).then(data => {
         console.log(data);
     });
-// obs.send('GetSourcesList').then(data => {
-//         console.log(data);
-//     });
-    // obs.send('SetTextGDIPlusProperties', {"source": "Opp_1", "text": "Testing"}).then(data => {
-    //     console.log(data);
-    // }).catch(err => console.log(err));
-
 }
 
 export let obsTest2 = () => {

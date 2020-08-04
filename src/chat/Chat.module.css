@@ -1,0 +1,17 @@
+.wrapper {
+
+    width: 800px;
+    max-height: 600px;
+}
+
+.message {
+    font-size: 30px;
+    margin: 10px;
+
+}
+.messageText {
+    color: white;
+}
+body {
+    background-color: darkslateblue;
+}

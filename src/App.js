@@ -1,34 +1,34 @@
 import React from 'react';
-import {obsConnect, setGameInfo} from "./obs/obs";
 import tmi from 'tmi.js'
-import {h3lobby} from './h3lobby'
-
-
-
+import options from './tmijs/options'
+import commandsHandler from "./commandsHandler";
+import Chat from "./chat/Chat";
+let  randomColorsChosen = {};
+let defaultColors = [
+    '#FF0000','#0000FF','#008000','#B22222','#FF7F50',
+    '#9ACD32','#FF4500','#2E8B57','#DAA520','#D2691E',
+    '#5F9EA0','#1E90FF','#FF69B4','#8A2BE2','#00FF7F'
+]
+function resolveColor(chan, name, color) {
+    if(color !== null) {
+        return color;
+    }
+    if(!(chan in randomColorsChosen)) {
+        randomColorsChosen[chan] = {};
+    }
+    if(name in randomColorsChosen[chan]) {
+        color = randomColorsChosen[chan][name];
+    }
+    else {
+        color = defaultColors[Math.floor(Math.random()*defaultColors.length)];
+        randomColorsChosen[chan][name] = color;
+    }
+    return color;
+}
 class App extends React.Component {
-
     constructor(props) {
-
         super(props);
-        const options = {
-            options: {
-                debug: true,
-
-            },
-            connection: {
-                reconnect: true,
-                secure: true
-            },
-            identity: {
-                username: "advicerfromchat",
-                password: "oauth:cchg3xx5wmu0pcspo0ku3eoqmqsfxd",
-            },
-            channels: ['psihoz_ykt',
-                "ariywariy", "nobodydie_", "bakhtik"
-            ],
-        };
         this.state = {chat: []}
-        console.log(options)
         window.state = this.state;
         this.client = new tmi.client(options);
         this.client.connect()
@@ -36,59 +36,24 @@ class App extends React.Component {
             console.log("connected")
         });
         this.client.on('chat', (channel, userstate, message, self) => {
-            if (userstate.username === "psihoz_ykt") {
-
-                const words = message.split(' ');
-                if (words[0] === "!set") {
-                    const channelTown = words[1];
-                    const channelRating = words[2];
-                    const vs = words[2];
-                    const oppName = words[3];
-                    const oppRating = words[4];
-                    const oppTown = words[5];
-                    console.log(`${channelTown} ${channelRating} ${oppName} ${oppRating} ${oppTown}`)
-                    setGameInfo("Ariy", channelTown, channelRating, oppName, oppRating, oppTown)
-                    //!set castle +3000 vs Zoom4uk 300rate Rampart
-                    let rating = ""
-                    // h3lobby.getRating("#ariywariy", words).then(
-                    //     el => {
-                    //         rating = el
-                    //         console.log(rating)
-                    //     }
-                    // );
-                }
-                // let chat =  [...this.state.chat, {name: userstate["display-name"], text: message}];
-                //  this.setState({chat})
+            if(this.state.chat.length > 10){
+                this.state.chat.shift()
             }
+            userstate.color = resolveColor(channel, userstate.username, userstate.color);
+            console.log(message)
+            this.setState({
+                ...this.state, chat: [...this.state.chat,
+                    {
+                        userstate, message
+                    }]
+            })
+            // commandsHandler.handleCommand(message, channel, userstate)
         });
     }
 
     render() {
-        return <div>
-            <div>
-                <input onChange={(e) => this.setState({...this.state, text: e.target.value})}/>
-                <button onClick={() => {
-                    // this.setState({...this.state, chat: [...this.state.chat, {name: "advicerfromchat", text: this.state.text}]})
-                    // this.client.say("ariywariy", this.state.text)
-                    obsConnect();
-                }
-                }> send
-                </button>
-
-                {/*<button onClick={() => {*/}
-                {/*    // this.setState({...this.state, chat: [...this.state.chat, {name: "advicerfromchat", text: this.state.text}]})*/}
-                {/*    // this.client.say("ariywariy", this.state.text)*/}
-
-                {/*}*/}
-                {/*}> send*/}
-                {/*</button>*/}
-            </div>
-            {/*<div> {fromArrToComponent(this.state.chat)}</div>*/}
-        </div>
+        return <Chat chat={this.state.chat}/>
     }
 }
 
-let fromArrToComponent = (arr) => {
-    return arr.map(el => <div> {el.name + " " + el.text} </div>)
-}
 export default App;
